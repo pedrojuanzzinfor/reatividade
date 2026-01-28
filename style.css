@@ -1,0 +1,8 @@
+/* Estilo Padrão (Claro) */
+body { background-color: white; color: black; transition: 0.3s; }
+.container { border: 1px solid #ddd; padding: 20px; }
+
+/* Estilo Escuro */
+body.escuro { background-color: #222; color: #fff; }
+body.escuro .container { border-color: #555; }
+body.escuro button { background-color: purple; color: white; }
