@@ -2,6 +2,7 @@ import { criarEstado } from "./minireact.js";
 
 const [lerTarefas, alterarTarefas] = criarEstado(['aprender JS', 'Entender REACT'], render)
 const [lerTema, alterarTema] = criarEstado('claro', render)
+const [lerBusca, alterarBusca] = criarEstado(" ", render)
 const botaoTema = document.querySelector("#tema")
 const btn_novaTarefa = document.querySelector("#btn-add")
 btn_novaTarefa.addEventListener("click", function () {
@@ -20,8 +21,10 @@ botaoTema.addEventListener("click", function () {
 render()
 
 function App() {
-
-    return "<ul>" + (lerTarefas().map(function (i) {
+    const tarefasFiltradas = lerTarefas().filter(function (i) {
+        return (i.toLowerCase()).includes(lerBusca().toLowerCase())
+    })
+    return "<ul>" + (tarefasFiltradas.map(function (i) {
         return "<li>" + i + "<button id='remove'>X</button></li>"
 
     }).join(" ")) + "</ul>"
@@ -31,3 +34,7 @@ function render() {
     const div = document.querySelector("#app")
     div.innerHTML = App()
 }
+const inputBusca = document.querySelector("#busca")
+inputBusca.addEventListener("input", function () {
+    alterarBusca(inputBusca.value)
+})
