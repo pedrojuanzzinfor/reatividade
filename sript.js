@@ -1,7 +1,8 @@
 import { criarEstado } from "./minireact.js";
-
-const [lerTarefas, alterarTarefas] = criarEstado(['aprender JS', 'Entender REACT'], render)
-const [lerTema, alterarTema] = criarEstado('claro', render)
+const tarefasSalvas = JSON.parse(localStorage.getItem("tarefas"))
+const temaSalvo = JSON.parse(localStorage.getItem("tema"))
+const [lerTarefas, alterarTarefas] = criarEstado(tarefasSalvas ?? [], render)
+const [lerTema, alterarTema] = criarEstado(temaSalvo ?? [], render)
 const [lerBusca, alterarBusca] = criarEstado(" ", render)
 const botaoTema = document.querySelector("#tema")
 const btn_novaTarefa = document.querySelector("#btn-add")
@@ -33,7 +34,10 @@ function render() {
     document.querySelector("body").className = lerTema()
     const div = document.querySelector("#app")
     div.innerHTML = App()
+    localStorage.setItem("tarefas", JSON.stringify(lerTarefas()))
+    localStorage.setItem("tema", JSON.stringify(lerTema()))
 }
+
 const inputBusca = document.querySelector("#busca")
 inputBusca.addEventListener("input", function () {
     alterarBusca(inputBusca.value)
