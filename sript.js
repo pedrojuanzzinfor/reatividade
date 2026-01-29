@@ -22,11 +22,11 @@ render()
 
 function App() {
     const tarefasFiltradas = lerTarefas().filter(function (i) {
-        return (i.toLowerCase()).includes(lerBusca().toLowerCase())
+        if (lerBusca() != " ") return (i.toLowerCase()).includes(lerBusca().toLowerCase())
+        else return true
     })
     return "<ul>" + (tarefasFiltradas.map(function (i) {
         return "<li>" + i + "<button id='remove'>X</button></li>"
-
     }).join(" ")) + "</ul>"
 }
 function render() {
