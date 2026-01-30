@@ -5,7 +5,6 @@ export function criarEstado(valorInicial, funcaoQueAtualizaATela) {
 
 
     function ler() {
-        console.log(valorInterno)
         return valorInterno
     }
 
