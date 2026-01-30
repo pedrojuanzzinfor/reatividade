@@ -2,10 +2,10 @@ import { Header, ItemTarefa } from './componentes.js';
 import { criarEstado } from "./minireact.js";
 
 const tarefasSalvas = JSON.parse(localStorage.getItem("tarefas"))
-const temaSalvo = JSON.parse(localStorage.getItem("tema"))
+const temaSalvo = localStorage.getItem("tema")
 
 const [lerTarefas, alterarTarefas] = criarEstado(tarefasSalvas ?? [], render)
-const [lerTema, alterarTema] = criarEstado(temaSalvo ?? [], render)
+const [lerTema, alterarTema] = criarEstado(temaSalvo ?? "claro", render)
 const [lerBusca, alterarBusca] = criarEstado(" ", render)
 
 render()
@@ -40,15 +40,15 @@ const inputBusca = document.querySelector("#busca")
 inputBusca.addEventListener("input", function () {
     alterarBusca(inputBusca.value)
 })
-
 window.trocarTema = function () {
-    console.log("oi")
+    localStorage.setItem("tema", lerTema())
     if (lerTema() == "claro") {
         alterarTema("escuro")
     }
     else alterarTema("claro")
     document.querySelector("body").className = lerTema()
 }
+trocarTema()
 
 window.removerTarefa = function (i) {
     const removido = lerTarefas().filter((v, c) => {
